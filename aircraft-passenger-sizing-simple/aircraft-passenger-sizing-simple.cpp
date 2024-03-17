@@ -1,3 +1,10 @@
+/*
+ * Simple system to determine the best allocation of passengers to aircraft
+ * Deepak Shenoy
+ * March 2024
+ *
+ */
+
 #include <iostream>
 
 int main() {
