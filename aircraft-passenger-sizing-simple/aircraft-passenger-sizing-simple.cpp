@@ -14,6 +14,9 @@ int main() {
 
     try {
 
+        // Problem variables
+        int numberOfPassengers = 1000;
+
         // Create and environment - local and empty environment
         GRBEnv env = GRBEnv(true);
 
@@ -29,6 +32,23 @@ int main() {
         GRBVar b757_300 = model.addVar(0, 234, 0, GRB_INTEGER, "b757_300");
         // https://www.delta.com/us/en/aircraft/boeing/737-900er
         GRBVar b737_900er = model.addVar(0, 180, 0, GRB_INTEGER, "b737_900er");
+
+        // Set objective
+        model.setObjective(b767_300er + a350_900 + b757_300 + b737_900er, GRB_MAXIMIZE);
+
+        // Constraints
+        model.addConstr(b767_300er + a350_900 + b757_300 + b737_900er <= numberOfPassengers, "c0");
+
+        // Find optimal solution
+        model.optimize();
+
+        cout << b767_300er.get(GRB_StringAttr_VarName) << " " << b767_300er.get(GRB_DoubleAttr_X) << endl;
+        cout << a350_900.get(GRB_StringAttr_VarName) << " " << a350_900.get(GRB_DoubleAttr_X) << endl;
+        cout << b757_300.get(GRB_StringAttr_VarName) << " " << b757_300.get(GRB_DoubleAttr_X) << endl;
+        cout << b737_900er.get(GRB_StringAttr_VarName) << " " << b737_900er.get(GRB_DoubleAttr_X) << endl;
+
+        cout << "Objective: " << model.get(GRB_DoubleAttr_ObjVal) << endl;
+
 
 
 
