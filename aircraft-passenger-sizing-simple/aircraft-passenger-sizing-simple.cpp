@@ -8,7 +8,17 @@
 #include <iostream>
 #include "gurobi_c++.h"
 
+using namespace std;
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+
+    try {
+
+    } catch (GRBException e) {
+        std::cout << "Error code: " << e.getErrorCode() << " ";
+        std::cout << "Error message: " << e.getMessage() << std::endl;
+    }
+
+
     return 0;
 }
